@@ -9,6 +9,7 @@ fastify.register(require('fastify-swagger'), {
 });
 
 fastify.register(require('./routes/users'));
+fastify.register(require('./routes/boards'));
 
 const start = async () => {
   try {
