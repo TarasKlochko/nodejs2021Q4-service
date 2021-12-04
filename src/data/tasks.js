@@ -4,27 +4,27 @@ let tasks = [
     title: 'Tasks 1',
     order: 1,
     description: 'Taskkkk oneee',
-    userId: '',
-    boardId: '',
-    columnId: '',
+    userId: null,
+    boardId: null,
+    columnId: null,
   },
   {
     id: '58b3b81a-32cb-409c-b21f-31b27c32d142',
     title: 'Tasks 2',
     order: 2,
     description: 'Taskkkk twooo',
-    userId: '',
-    boardId: '',
-    columnId: '',
+    userId: null,
+    boardId: null,
+    columnId: null,
   },
   {
     id: '58b3b81a-32cb-409c-b21f-31b27c32d143',
     title: 'Tasks 3',
     order: 3,
     description: 'Taskkkk threee',
-    userId: '',
-    boardId: '',
-    columnId: '',
+    userId: '13249960-a603-4a82-93aa-94d593427387',
+    boardId: null,
+    columnId: null,
   },
 ];
 
@@ -58,4 +58,11 @@ async function deleteByID(id, all = false) {
     tasks = tasks.filter((task) => task.boardId !== id);
   }
 }
-module.exports = { getAll, getByID, add, update, deleteByID };
+
+function cleanUserValue(id) {
+  const userId = null;
+  tasks = tasks.map((task) =>
+    task.userId === id ? { ...task, userId } : task
+  );
+}
+module.exports = { getAll, getByID, add, update, deleteByID, cleanUserValue };

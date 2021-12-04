@@ -1,5 +1,6 @@
 const { v4: uuidV4 } = require('uuid');
 let users = require('../data/users');
+const tasks = require('../data/tasks');
 
 const getUsers = (req, reply) => {
   reply.send(users);
@@ -26,6 +27,7 @@ const addUser = (req, reply) => {
 const deleteUser = (req, reply) => {
   const { id } = req.params;
   users = users.filter((user) => user.id !== id);
+  tasks.cleanUserValue(id);
   reply.send({ message: `User ${id} has been removed` });
 };
 
