@@ -1,4 +1,4 @@
-const tasks = [
+let tasks = [
   {
     id: '58b3b81a-32cb-409c-b21f-31b27c32d141',
     title: 'Tasks 1',
@@ -28,4 +28,30 @@ const tasks = [
   },
 ];
 
-module.exports = tasks;
+function getAll() {
+  return tasks;
+}
+
+function getByID(id) {
+  const task = tasks.find((taskItem) => taskItem.id === id);
+  return task;
+}
+
+async function add(task) {
+  tasks = [...tasks, task];
+}
+
+async function update(req) {
+  const { id } = req.params;
+  const { title, order, description, userId, columnId } = req.body;
+  tasks = tasks.map((task) =>
+    task.id === id
+      ? { ...task, title, order, description, userId, columnId }
+      : task
+  );
+}
+
+async function deleteByID(id) {
+  tasks = tasks.filter((task) => task.id !== id);
+}
+module.exports = { getAll, getByID, add, update, deleteByID };

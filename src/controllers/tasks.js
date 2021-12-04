@@ -1,13 +1,14 @@
 const { v4: uuidV4 } = require('uuid');
-let tasks = require('../data/tasks');
+const tasks = require('../data/tasks');
 
 const getTasks = (req, reply) => {
-  reply.send(tasks);
+  reply.send(tasks.getAll());
 };
 
 const getTask = (req, reply) => {
   const { id } = req.params;
-  const task = tasks.find((taskItem) => taskItem.id === id);
+
+  const task = tasks.getByID(id);
   if (task) {
     reply.send(task);
   } else {
@@ -27,26 +28,20 @@ const addTask = (req, reply) => {
     boardId: id,
     columnId,
   };
-  tasks = [...tasks, task];
+  tasks.add(task);
   reply.code(201).send(task);
 };
 
 const updateTask = (req, reply) => {
   const { id } = req.params;
-  console.log('req.params', req.params);
-  const { title, order, description, userId, columnId } = req.body;
-  tasks = tasks.map((task) =>
-    task.id === id
-      ? { ...task, title, order, description, userId, columnId }
-      : task
-  );
-  const task = tasks.find((taskItem) => taskItem.id === id);
+  tasks.update(req);
+  const task = tasks.getByID(id);
   reply.send(task);
 };
 
 const deleteTask = (req, reply) => {
   const { id } = req.params;
-  tasks = tasks.filter((task) => task.id !== id);
+  tasks.deleteByID(id);
   reply.send();
 };
 
