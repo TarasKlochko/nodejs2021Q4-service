@@ -1,5 +1,6 @@
 const { v4: uuidV4 } = require('uuid');
 let boards = require('../data/boards');
+const tasks = require('../data/tasks');
 
 const getBoards = (req, reply) => {
   reply.send(boards);
@@ -40,6 +41,7 @@ const deleteBoard = (req, reply) => {
   const { id } = req.params;
 
   boards = boards.filter((boardItem) => boardItem.id !== id);
+  tasks.deleteByID(id, true);
   reply.type('application/json').send(JSON.stringify(id));
 };
 

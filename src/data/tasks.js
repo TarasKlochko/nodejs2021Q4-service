@@ -51,7 +51,11 @@ async function update(req) {
   );
 }
 
-async function deleteByID(id) {
-  tasks = tasks.filter((task) => task.id !== id);
+async function deleteByID(id, all = false) {
+  if (!all) {
+    tasks = tasks.filter((task) => task.id !== id);
+  } else {
+    tasks = tasks.filter((task) => task.boardId !== id);
+  }
 }
 module.exports = { getAll, getByID, add, update, deleteByID };
