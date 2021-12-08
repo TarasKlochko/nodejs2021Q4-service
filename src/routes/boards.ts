@@ -1,10 +1,15 @@
-const {
+import {
+  FastifyInstance,
+  RouteShorthandOptions,
+  RouteShorthandOptionsWithHandler,
+} from 'fastify';
+import {
   getBoards,
   getBoard,
   addBoard,
   updateBoard,
   deleteBoard,
-} = require('../controllers/boards');
+} from '../controllers/boards';
 
 // Board schema
 const Board = {
@@ -26,7 +31,7 @@ const Board = {
   },
 };
 
-const getBoardsOpts = {
+const getBoardsOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     response: {
       200: {
@@ -38,7 +43,7 @@ const getBoardsOpts = {
   handler: getBoards,
 };
 
-const getBoardOpts = {
+const getBoardOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     response: {
       200: Board,
@@ -47,7 +52,7 @@ const getBoardOpts = {
   handler: getBoard,
 };
 
-const postBoardOpts = {
+const postBoardOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     body: {
       type: 'object',
@@ -73,7 +78,7 @@ const postBoardOpts = {
   handler: addBoard,
 };
 
-const updateBoardOpts = {
+const updateBoardOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     response: {
       200: Board,
@@ -82,7 +87,7 @@ const updateBoardOpts = {
   handler: updateBoard,
 };
 
-const deleteBoardOpts = {
+const deleteBoardOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     response: {
       200: Board,
@@ -91,7 +96,11 @@ const deleteBoardOpts = {
   handler: deleteBoard,
 };
 
-function boardRoutes(fastify, options, done) {
+export function boardRoutes(
+  fastify: FastifyInstance,
+  options: RouteShorthandOptions,
+  done: () => void
+) {
   // Get all boards
   fastify.get('/boards', getBoardsOpts);
 
@@ -107,5 +116,3 @@ function boardRoutes(fastify, options, done) {
   fastify.delete('/boards/:id', deleteBoardOpts);
   done();
 }
-
-module.exports = boardRoutes;

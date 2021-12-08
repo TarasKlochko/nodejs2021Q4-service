@@ -1,5 +1,6 @@
 import Fastify, { FastifyInstance } from 'fastify';
 import { Server, IncomingMessage, ServerResponse } from 'http';
+import { boardRoutes } from './routes/boards';
 import userRoutes from './routes/users';
 
 const { PORT } = require('./common/config.ts');
@@ -17,7 +18,7 @@ fastify.register(require('fastify-swagger'), {
 });
 
 fastify.register(userRoutes);
-fastify.register(require('./routes/boards'));
+fastify.register(boardRoutes);
 fastify.register(require('./routes/tasks'));
 
 const start = async () => {
