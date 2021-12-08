@@ -1,5 +1,6 @@
 const fastify = require('fastify')({ logger: true });
-const { PORT } = require('./common/config');
+const { PORT } = require('./common/config.ts');
+
 fastify.register(require('fastify-swagger'), {
   exposeRoute: true,
   routePrefix: '/docs',
