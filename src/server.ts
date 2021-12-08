@@ -1,6 +1,13 @@
-const fastify = require('fastify')({ logger: true });
+import Fastify, { FastifyInstance } from 'fastify';
+import { Server, IncomingMessage, ServerResponse } from 'http';
+import userRoutes from './routes/users';
+
 const { PORT } = require('./common/config.ts');
 
+const fastify: FastifyInstance<Server, IncomingMessage, ServerResponse> =
+  Fastify({
+    logger: true,
+  });
 fastify.register(require('fastify-swagger'), {
   exposeRoute: true,
   routePrefix: '/docs',
@@ -9,7 +16,7 @@ fastify.register(require('fastify-swagger'), {
   },
 });
 
-fastify.register(require('./routes/users'));
+fastify.register(userRoutes);
 fastify.register(require('./routes/boards'));
 fastify.register(require('./routes/tasks'));
 

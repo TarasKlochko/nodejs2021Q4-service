@@ -1,10 +1,16 @@
-const {
+import {
+  FastifyInstance,
+  RouteShorthandOptions,
+  RouteShorthandOptionsWithHandler,
+} from 'fastify';
+
+import {
   getUsers,
   getUser,
   addUser,
   deleteUser,
   updateUser,
-} = require('../controllers/users');
+} from '../controllers/users';
 
 // User schema
 const User = {
@@ -18,7 +24,7 @@ const User = {
 };
 
 // Options for get all users
-const getUsersOpts = {
+const getUsersOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     response: {
       200: {
@@ -31,7 +37,7 @@ const getUsersOpts = {
 };
 
 // Options for get single user
-const getUserOpts = {
+const getUserOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     response: {
       200: User,
@@ -41,7 +47,7 @@ const getUserOpts = {
 };
 
 // Options for add single user
-const postUserOpts = {
+const postUserOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     body: {
       type: 'object',
@@ -67,7 +73,7 @@ const postUserOpts = {
 };
 
 // Options for delete single user
-const deleteUserOpts = {
+const deleteUserOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     response: {
       200: {
@@ -82,7 +88,7 @@ const deleteUserOpts = {
 };
 
 // Options for update user
-const updateUserOpts = {
+const updateUserOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     response: {
       200: User,
@@ -91,7 +97,11 @@ const updateUserOpts = {
   handler: updateUser,
 };
 
-function userRoutes(fastify, options, done) {
+export default function userRoutes(
+  fastify: FastifyInstance,
+  options: RouteShorthandOptions,
+  done: () => void
+) {
   // Get all users
   fastify.get('/users', getUsersOpts);
 
@@ -108,5 +118,3 @@ function userRoutes(fastify, options, done) {
   fastify.put('/users/:id', updateUserOpts);
   done();
 }
-
-module.exports = userRoutes;
