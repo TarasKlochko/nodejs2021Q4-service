@@ -97,6 +97,14 @@ const updateUserOpts: RouteShorthandOptionsWithHandler = {
   handler: updateUser,
 };
 
+/**
+ * Function that handles user routes
+ * @param fastify first term FastifyInstance
+ * @param options second term RouteShorthandOptions
+ * @param done  third term function
+ * @returns voide
+ */
+
 export default function userRoutes(
   fastify: FastifyInstance,
   options: RouteShorthandOptions,
