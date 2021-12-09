@@ -20,6 +20,11 @@ fastify.register(userRoutes);
 fastify.register(boardRoutes);
 fastify.register(tasksRoutes);
 
+/**
+ * Listens user port. If an error occurs then log one and stops server
+ * @returns void
+ */
+
 const start = async () => {
   try {
     await fastify.listen(PORT);
