@@ -1,10 +1,16 @@
-const {
+import {
+  FastifyInstance,
+  RouteShorthandOptions,
+  RouteShorthandOptionsWithHandler,
+} from 'fastify';
+
+import {
   getTasks,
   getTask,
   addTask,
   updateTask,
   deleteTask,
-} = require('../controllers/tasks');
+} from '../controllers/tasks';
 
 // Task schema
 const Task = {
@@ -14,13 +20,13 @@ const Task = {
     title: { type: 'string' },
     order: { type: 'integer' },
     description: { type: 'string' },
-    userId: { type: 'null' },
-    boardId: { type: 'string' },
-    columnId: { type: 'null' },
+    userId: { type: ['null', 'string'] },
+    boardId: { type: ['null', 'string'] },
+    columnId: { type: ['null', 'string'] },
   },
 };
 
-const getTasksOpts = {
+const getTasksOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     response: {
       200: {
@@ -32,7 +38,7 @@ const getTasksOpts = {
   handler: getTasks,
 };
 
-const getTaskOpts = {
+const getTaskOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     response: {
       200: Task,
@@ -41,7 +47,7 @@ const getTaskOpts = {
   handler: getTask,
 };
 
-const postTaskOpts = {
+const postTaskOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     body: {
       type: 'object',
@@ -59,7 +65,7 @@ const postTaskOpts = {
   handler: addTask,
 };
 
-const updateTaskOpts = {
+const updateTaskOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     response: {
       200: Task,
@@ -68,7 +74,7 @@ const updateTaskOpts = {
   handler: updateTask,
 };
 
-const deleteTaskOpts = {
+const deleteTaskOpts: RouteShorthandOptionsWithHandler = {
   schema: {
     response: {
       404: Task,
@@ -77,7 +83,11 @@ const deleteTaskOpts = {
   handler: deleteTask,
 };
 
-function tasksRoutes(fastify, options, done) {
+export function tasksRoutes(
+  fastify: FastifyInstance,
+  options: RouteShorthandOptions,
+  done: () => void
+) {
   // Get get all tasks
   fastify.get('/boards/:id/tasks', getTasksOpts);
 
@@ -93,5 +103,3 @@ function tasksRoutes(fastify, options, done) {
   fastify.delete('/boards/:id/tasks/:id', deleteTaskOpts);
   done();
 }
-
-module.exports = tasksRoutes;

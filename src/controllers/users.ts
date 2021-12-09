@@ -2,7 +2,7 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 
 const { v4: uuidV4 } = require('uuid');
 let users = require('../data/users');
-const tasks = require('../data/tasks');
+import tasks from '../data/tasks';
 
 type UserID = { id: string };
 

@@ -1,4 +1,17 @@
-let tasks = [
+import { FastifyRequest } from 'fastify';
+
+type TaskID = string;
+interface Task {
+  id: TaskID;
+  title: string;
+  order: number;
+  description: string;
+  userId: null | string;
+  boardId: null | string;
+  columnId: null | string;
+}
+
+let tasks: Task[] = [
   {
     id: '58b3b81a-32cb-409c-b21f-31b27c32d141',
     title: 'Tasks 1',
@@ -32,18 +45,18 @@ function getAll() {
   return tasks;
 }
 
-function getByID(id) {
+function getByID(id: TaskID) {
   const task = tasks.find((taskItem) => taskItem.id === id);
   return task;
 }
 
-async function add(task) {
+async function add(task: Task) {
   tasks = [...tasks, task];
 }
 
-async function update(req) {
-  const { id } = req.params;
-  const { title, order, description, userId, columnId } = req.body;
+async function update(req: FastifyRequest) {
+  const { id } = <{ id: TaskID }>req.params;
+  const { title, order, description, userId, columnId } = <Task>req.body;
   tasks = tasks.map((task) =>
     task.id === id
       ? { ...task, title, order, description, userId, columnId }
@@ -51,7 +64,7 @@ async function update(req) {
   );
 }
 
-async function deleteByID(id, all = false) {
+async function deleteByID(id: TaskID, all = false) {
   if (!all) {
     tasks = tasks.filter((task) => task.id !== id);
   } else {
@@ -59,10 +72,10 @@ async function deleteByID(id, all = false) {
   }
 }
 
-function cleanUserValue(id) {
+function cleanUserValue(id: TaskID) {
   const userId = null;
   tasks = tasks.map((task) =>
     task.userId === id ? { ...task, userId } : task
   );
 }
-module.exports = { getAll, getByID, add, update, deleteByID, cleanUserValue };
+export default { getAll, getByID, add, update, deleteByID, cleanUserValue };
