@@ -1,7 +1,6 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
+import { v4 as uuidV4 } from 'uuid';
 import tasks from '../data/tasks';
-
-const { v4: uuidV4 } = require('uuid');
 
 const getTasks = (req: FastifyRequest, reply: FastifyReply) => {
   reply.send(tasks.getAll());

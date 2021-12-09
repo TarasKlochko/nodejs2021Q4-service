@@ -3,13 +3,13 @@ import { Server, IncomingMessage, ServerResponse } from 'http';
 import { boardRoutes } from './routes/boards';
 import { tasksRoutes } from './routes/tasks';
 import userRoutes from './routes/users';
-
-const { PORT } = require('./common/config.ts');
+import { PORT } from './common/config';
 
 const fastify: FastifyInstance<Server, IncomingMessage, ServerResponse> =
   Fastify({
     logger: true,
   });
+
 fastify.register(require('fastify-swagger'), {
   exposeRoute: true,
   routePrefix: '/docs',
