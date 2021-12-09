@@ -1,16 +1,9 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { v4 as uuidV4 } from 'uuid';
 import tasks from '../data/tasks';
+import { UserID, User } from '../model/user';
 
 let users = require('../data/users');
-
-type UserID = { id: string };
-
-interface User extends UserID {
-  name: string;
-  login: string;
-  password: string;
-}
 
 /**
  * Sends all users

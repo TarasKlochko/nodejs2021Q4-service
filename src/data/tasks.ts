@@ -1,15 +1,5 @@
 import { FastifyRequest } from 'fastify';
-
-type TaskID = string;
-interface Task {
-  id: TaskID;
-  title: string;
-  order: number;
-  description: string;
-  userId: null | string;
-  boardId: null | string;
-  columnId: null | string;
-}
+import { Task, TaskID } from '../model/task';
 
 let tasks: Task[] = [
   {

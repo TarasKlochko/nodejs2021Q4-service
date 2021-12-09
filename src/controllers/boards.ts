@@ -1,15 +1,9 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { v4 as uuidV4 } from 'uuid';
 import tasks from '../data/tasks';
+import { BoardID, Board } from '../model/board';
 
 let boards = require('../data/boards');
-
-type BoardID = { id: string };
-
-interface Board extends BoardID {
-  title: string;
-  columns: string;
-}
 
 /**
  * Sends all boards

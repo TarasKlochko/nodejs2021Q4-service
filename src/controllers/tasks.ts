@@ -1,17 +1,7 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { v4 as uuidV4 } from 'uuid';
 import tasks from '../data/tasks';
-
-type TaskID = string;
-interface Task {
-  id: TaskID;
-  title: string;
-  order: number;
-  description: string;
-  userId: null | string;
-  boardId: null | string;
-  columnId: null | string;
-}
+import { TaskID, Task } from '../model/task';
 
 /**
  * Sends all tasks
