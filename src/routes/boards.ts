@@ -96,6 +96,14 @@ const deleteBoardOpts: RouteShorthandOptionsWithHandler = {
   handler: deleteBoard,
 };
 
+/**
+ * Function that handles board routes
+ * @param fastify first term FastifyInstance
+ * @param options second term RouteShorthandOptions
+ * @param done  third term function
+ * @returns void
+ */
+
 export function boardRoutes(
   fastify: FastifyInstance,
   options: RouteShorthandOptions,

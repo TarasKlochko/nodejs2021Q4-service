@@ -11,9 +11,23 @@ interface Board extends BoardID {
   columns: string;
 }
 
+/**
+ * Sends all boards
+ * @param req first term FastifyRequest
+ * @param reply second term FastifyReply
+ * @returns void
+ */
+
 export const getBoards = (req: FastifyRequest, reply: FastifyReply) => {
   reply.send(boards);
 };
+
+/**
+ * Sends single board or 404 code if board does not exist
+ * @param req first term FastifyRequest
+ * @param reply second term FastifyReply
+ * @returns void
+ */
 
 export const getBoard = (req: FastifyRequest, reply: FastifyReply) => {
   const { id } = <BoardID>req.params;
@@ -24,6 +38,13 @@ export const getBoard = (req: FastifyRequest, reply: FastifyReply) => {
     reply.code(404).send();
   }
 };
+
+/**
+ * Creates and sends new board
+ * @param req first term FastifyRequest
+ * @param reply second term FastifyReply
+ * @returns void
+ */
 
 export const addBoard = (req: FastifyRequest, reply: FastifyReply) => {
   const { title, columns } = <Board>req.body;
@@ -36,6 +57,13 @@ export const addBoard = (req: FastifyRequest, reply: FastifyReply) => {
   reply.code(201).send(board);
 };
 
+/**
+ * Updates and sends board
+ * @param req first term FastifyRequest
+ * @param reply second term FastifyReply
+ * @returns void
+ */
+
 export const updateBoard = (req: FastifyRequest, reply: FastifyReply) => {
   const { id } = <BoardID>req.params;
   const { title, columns } = <Board>req.body;
@@ -45,6 +73,13 @@ export const updateBoard = (req: FastifyRequest, reply: FastifyReply) => {
   const board = boards.find((boardItem: Board) => boardItem.id === id);
   reply.send(board);
 };
+
+/**
+ * Deletes board and sends id of that board
+ * @param req first term FastifyRequest
+ * @param reply second term FastifyReply
+ * @returns void
+ */
 
 export const deleteBoard = (req: FastifyRequest, reply: FastifyReply) => {
   const { id } = <BoardID>req.params;
