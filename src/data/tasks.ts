@@ -41,18 +41,41 @@ let tasks: Task[] = [
   },
 ];
 
+/**
+ * Return tasks
+ * @returns tasks
+ */
+
 function getAll() {
   return tasks;
 }
+
+/**
+ * Finds and returns task by ID
+ * @param id first term tasks
+ * @returns task
+ */
 
 function getByID(id: TaskID) {
   const task = tasks.find((taskItem) => taskItem.id === id);
   return task;
 }
 
+/**
+ * Adds new task to tasks
+ * @param task first term Task
+ * @returns void
+ */
+
 async function add(task: Task) {
   tasks = [...tasks, task];
 }
+
+/**
+ * Updates task by ID
+ * @param req first term FastifyRequest
+ * @returns void
+ */
 
 async function update(req: FastifyRequest) {
   const { id } = <{ id: TaskID }>req.params;
@@ -64,6 +87,13 @@ async function update(req: FastifyRequest) {
   );
 }
 
+/**
+ * Deletes task by ID or tasks by boardId
+ * @param id first term string
+ * @param all second term boolean
+ * @returns void
+ */
+
 async function deleteByID(id: TaskID, all = false) {
   if (!all) {
     tasks = tasks.filter((task) => task.id !== id);
@@ -72,10 +102,17 @@ async function deleteByID(id: TaskID, all = false) {
   }
 }
 
+/**
+ * Cleans userId in tasks
+ * @param id first term string
+ * @returns void
+ */
+
 function cleanUserValue(id: TaskID) {
   const userId = null;
   tasks = tasks.map((task) =>
     task.userId === id ? { ...task, userId } : task
   );
 }
+
 export default { getAll, getByID, add, update, deleteByID, cleanUserValue };

@@ -2,10 +2,6 @@ import { FastifyRequest, FastifyReply } from 'fastify';
 import { v4 as uuidV4 } from 'uuid';
 import tasks from '../data/tasks';
 
-const getTasks = (req: FastifyRequest, reply: FastifyReply) => {
-  reply.send(tasks.getAll());
-};
-
 type TaskID = string;
 interface Task {
   id: TaskID;
@@ -17,6 +13,24 @@ interface Task {
   columnId: null | string;
 }
 
+/**
+ * Sends all tasks
+ * @param req first term FastifyRequest
+ * @param reply second term FastifyReply
+ * @returns void
+ */
+
+const getTasks = (req: FastifyRequest, reply: FastifyReply) => {
+  reply.send(tasks.getAll());
+};
+
+/**
+ * Sends single task or 404 code if one does not exist
+ * @param req first term FastifyRequest
+ * @param reply second term FastifyReply
+ * @returns void
+ */
+
 const getTask = (req: FastifyRequest, reply: FastifyReply) => {
   const { id } = <{ id: TaskID }>req.params;
 
@@ -27,6 +41,13 @@ const getTask = (req: FastifyRequest, reply: FastifyReply) => {
     reply.code(404).send();
   }
 };
+
+/**
+ * Creates and sends new task
+ * @param req first term FastifyRequest
+ * @param reply second term FastifyReply
+ * @returns void
+ */
 
 const addTask = (req: FastifyRequest, reply: FastifyReply) => {
   const { id } = <{ id: TaskID }>req.params;
@@ -44,12 +65,26 @@ const addTask = (req: FastifyRequest, reply: FastifyReply) => {
   reply.code(201).send(task);
 };
 
+/**
+ * Updates and sends this task
+ * @param req first term FastifyRequest
+ * @param reply second term FastifyReply
+ * @returns void
+ */
+
 const updateTask = (req: FastifyRequest, reply: FastifyReply) => {
   const { id } = <{ id: TaskID }>req.params;
   tasks.update(req);
   const task = tasks.getByID(id);
   reply.send(task);
 };
+
+/**
+ * Deletes task and sends a confirmation
+ * @param req first term FastifyRequest
+ * @param reply second term FastifyReply
+ * @returns void
+ */
 
 const deleteTask = (req: FastifyRequest, reply: FastifyReply) => {
   const { id } = <{ id: TaskID }>req.params;

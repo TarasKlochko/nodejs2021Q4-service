@@ -83,6 +83,14 @@ const deleteTaskOpts: RouteShorthandOptionsWithHandler = {
   handler: deleteTask,
 };
 
+/**
+ * Function that handles tasks routes
+ * @param fastify first term FastifyInstance
+ * @param options second term RouteShorthandOptions
+ * @param done  third term function
+ * @returns voide
+ */
+
 export function tasksRoutes(
   fastify: FastifyInstance,
   options: RouteShorthandOptions,
