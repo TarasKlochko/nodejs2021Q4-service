@@ -1,4 +1,5 @@
 import Fastify, { FastifyInstance } from 'fastify';
+import fastifySwagger from 'fastify-swagger';
 import { Server, IncomingMessage, ServerResponse } from 'http';
 import { boardRoutes } from './routes/boards';
 import { tasksRoutes } from './routes/tasks';
@@ -10,12 +11,9 @@ const fastify: FastifyInstance<Server, IncomingMessage, ServerResponse> =
     logger: true,
   });
 
-fastify.register(require('fastify-swagger'), {
+fastify.register(fastifySwagger, {
   exposeRoute: true,
   routePrefix: '/docs',
-  swager: {
-    info: { title: 'fastify-api' },
-  },
 });
 
 fastify.register(userRoutes);
