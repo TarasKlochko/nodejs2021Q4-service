@@ -20,6 +20,9 @@
     "node": {
       "resolvePaths": ["node_modules/@types"],
       "tryExtensions": [".js", ".json", ".node", ".ts", ".d.ts"]
+    },
+    "import/resolver": {
+      "typescript": {}
     }
   },
   "extends": [
