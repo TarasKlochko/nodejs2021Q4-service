@@ -107,7 +107,7 @@ const updateUserOpts: RouteShorthandOptionsWithHandler = {
 
 export default function userRoutes(
   fastify: FastifyInstance,
-  options: RouteShorthandOptions,
+  _options: RouteShorthandOptions,
   done: () => void
 ) {
   // Get all users

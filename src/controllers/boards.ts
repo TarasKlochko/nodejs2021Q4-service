@@ -7,12 +7,12 @@ let boards = require('../data/boards');
 
 /**
  * Sends all boards
- * @param req first term FastifyRequest
+ * @param _req first term FastifyRequest
  * @param reply second term FastifyReply
  * @returns void
  */
 
-export const getBoards = (req: FastifyRequest, reply: FastifyReply) => {
+export const getBoards = (_req: FastifyRequest, reply: FastifyReply) => {
   reply.send(boards);
 };
 

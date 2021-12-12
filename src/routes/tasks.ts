@@ -93,7 +93,7 @@ const deleteTaskOpts: RouteShorthandOptionsWithHandler = {
 
 export function tasksRoutes(
   fastify: FastifyInstance,
-  options: RouteShorthandOptions,
+  _options: RouteShorthandOptions,
   done: () => void
 ) {
   // Get get all tasks

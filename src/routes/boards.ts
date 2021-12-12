@@ -106,7 +106,7 @@ const deleteBoardOpts: RouteShorthandOptionsWithHandler = {
 
 export function boardRoutes(
   fastify: FastifyInstance,
-  options: RouteShorthandOptions,
+  _options: RouteShorthandOptions,
   done: () => void
 ) {
   // Get all boards
