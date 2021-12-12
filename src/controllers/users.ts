@@ -12,7 +12,7 @@ let users = require('../data/users');
  * @returns void
  */
 
-export const getUsers = (req: FastifyRequest, reply: FastifyReply) => {
+export const getUsers = (_req: FastifyRequest, reply: FastifyReply) => {
   reply.send(users);
 };
 

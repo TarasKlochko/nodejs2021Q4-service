@@ -10,7 +10,7 @@ import { TaskID, Task } from '../model/task';
  * @returns void
  */
 
-const getTasks = (req: FastifyRequest, reply: FastifyReply) => {
+const getTasks = (_req: FastifyRequest, reply: FastifyReply) => {
   reply.send(tasks.getAll());
 };
 
