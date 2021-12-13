@@ -3,7 +3,7 @@ import { v4 as uuidV4 } from 'uuid';
 import tasks from '../data/tasks';
 import { UserID, User } from '../model/user';
 
-let users = require('../data/users');
+import users from '../data/users';
 
 /**
  * Sends all users
@@ -13,7 +13,7 @@ let users = require('../data/users');
  */
 
 export const getUsers = (_req: FastifyRequest, reply: FastifyReply) => {
-  reply.send(users);
+  reply.send(users.getAll());
 };
 
 /**
@@ -24,8 +24,8 @@ export const getUsers = (_req: FastifyRequest, reply: FastifyReply) => {
  */
 
 export const getUser = (req: FastifyRequest, reply: FastifyReply) => {
-  const { id } = <UserID>req.params;
-  const user = users.find((userItem: User) => userItem.id === id);
+  const { id } = <{ id: UserID }>req.params;
+  const user = users.getByID(id);
   reply.send(user);
 };
 
@@ -44,7 +44,7 @@ export const addUser = (req: FastifyRequest, reply: FastifyReply) => {
     login,
     password,
   };
-  users = [...users, user];
+  users.add(user);
   reply.code(201).send(user);
 };
 
@@ -56,8 +56,8 @@ export const addUser = (req: FastifyRequest, reply: FastifyReply) => {
  */
 
 export const deleteUser = (req: FastifyRequest, reply: FastifyReply) => {
-  const { id } = <UserID>req.params;
-  users = users.filter((user: User) => user.id !== id);
+  const { id } = <{ id: UserID }>req.params;
+  users.deleteByID(id);
   tasks.cleanUserValue(id);
   reply.send({ message: `User ${id} has been removed` });
 };
@@ -70,11 +70,8 @@ export const deleteUser = (req: FastifyRequest, reply: FastifyReply) => {
  */
 
 export const updateUser = (req: FastifyRequest, reply: FastifyReply) => {
-  const { id } = <UserID>req.params;
-  const { name, login, password } = <User>req.body;
-  users = users.map((user: User) =>
-    user.id === id ? { id, name, login, password } : user
-  );
-  const user = users.find((userItem: User) => userItem.id === id);
+  const { id } = <{ id: UserID }>req.params;
+  users.update(req);
+  const user = users.getByID(id);
   reply.send(user);
 };
