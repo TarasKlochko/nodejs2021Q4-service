@@ -1,6 +1,11 @@
-export type BoardID = { id: string };
-
-export interface Board extends BoardID {
+export type BoardID = string;
+export type Column = {
+  id: string;
   title: string;
-  columns: string;
+  order: number;
+};
+export interface Board {
+  id: BoardID;
+  title: string;
+  columns: Column[];
 }

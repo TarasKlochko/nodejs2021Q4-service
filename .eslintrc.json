@@ -30,7 +30,7 @@
     "plugin:node/recommended",
     "airbnb-base",
     "plugin:import/typescript",
-    // "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended",
     "prettier"
   ],
   "rules": {

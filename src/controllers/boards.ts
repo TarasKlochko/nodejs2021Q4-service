@@ -3,7 +3,8 @@ import { v4 as uuidV4 } from 'uuid';
 import tasks from '../data/tasks';
 import { BoardID, Board } from '../model/board';
 
-let boards = require('../data/boards');
+// let boards = require('../data/boards');
+import boards from '../data/boards';
 
 /**
  * Sends all boards
@@ -13,7 +14,7 @@ let boards = require('../data/boards');
  */
 
 export const getBoards = (_req: FastifyRequest, reply: FastifyReply) => {
-  reply.send(boards);
+  reply.send(boards.getAll());
 };
 
 /**
@@ -24,8 +25,8 @@ export const getBoards = (_req: FastifyRequest, reply: FastifyReply) => {
  */
 
 export const getBoard = (req: FastifyRequest, reply: FastifyReply) => {
-  const { id } = <BoardID>req.params;
-  const board = boards.find((boardItem: Board) => boardItem.id === id);
+  const { id } = <{ id: BoardID }>req.params;
+  const board = boards.getByID(id);
   if (board) {
     reply.send(board);
   } else {
@@ -47,7 +48,7 @@ export const addBoard = (req: FastifyRequest, reply: FastifyReply) => {
     title,
     columns,
   };
-  boards = [...boards, board];
+  boards.add(board);
   reply.code(201).send(board);
 };
 
@@ -59,12 +60,9 @@ export const addBoard = (req: FastifyRequest, reply: FastifyReply) => {
  */
 
 export const updateBoard = (req: FastifyRequest, reply: FastifyReply) => {
-  const { id } = <BoardID>req.params;
-  const { title, columns } = <Board>req.body;
-  boards = boards.map((boardItem: Board) =>
-    boardItem.id === id ? { id, title, columns } : boardItem
-  );
-  const board = boards.find((boardItem: Board) => boardItem.id === id);
+  const { id } = <{ id: BoardID }>req.params;
+  boards.update(req);
+  const board = boards.getByID(id);
   reply.send(board);
 };
 
@@ -76,9 +74,9 @@ export const updateBoard = (req: FastifyRequest, reply: FastifyReply) => {
  */
 
 export const deleteBoard = (req: FastifyRequest, reply: FastifyReply) => {
-  const { id } = <BoardID>req.params;
+  const { id } = <{ id: BoardID }>req.params;
 
-  boards = boards.filter((boardItem: Board) => boardItem.id !== id);
+  boards.deleteByID(id);
   tasks.deleteByID(id, true);
   reply.type('application/json').send(JSON.stringify(id));
 };
