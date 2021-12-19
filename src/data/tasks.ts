@@ -33,7 +33,7 @@ let tasks: Task[] = [
 
 /**
  * Return tasks
- * @returns tasks
+ * @returns tasks Task[]
  */
 
 function getAll() {
@@ -43,7 +43,7 @@ function getAll() {
 /**
  * Finds and returns task by ID
  * @param id first term tasks
- * @returns task
+ * @returns task Task
  */
 
 function getByID(id: TaskID) {
