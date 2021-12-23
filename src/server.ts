@@ -8,8 +8,27 @@ import { PORT } from './common/config';
 
 const fastify: FastifyInstance<Server, IncomingMessage, ServerResponse> =
   Fastify({
-    logger: true,
+    logger: {
+      prettyPrint: {
+        translateTime: 'SYS:standard',
+        ignore: 'pid,hostname,reqId',
+      },
+      file: './file.log',
+    },
   });
+
+fastify.addHook('onSend', (req, reply, _payload, done) => {
+  req.log.info(
+    {
+      url: req.raw.url,
+      body: req.body,
+      query: req.query,
+      statusCode: reply.statusCode,
+    },
+    'received request'
+  );
+  done();
+});
 
 fastify.register(fastifySwagger, {
   exposeRoute: true,
