@@ -13,7 +13,7 @@ const fastify: FastifyInstance<Server, IncomingMessage, ServerResponse> =
         translateTime: 'SYS:standard',
         ignore: 'pid,hostname,reqId',
       },
-      file: './file.log',
+      file: './log/file.log',
     },
   });
 
