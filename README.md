@@ -1,11 +1,11 @@
-# RS School REST service
+# Docker
 
 ## Prerequisites
 
 - Git - [Download & Install Git](https://git-scm.com/downloads).
 - Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager.
 
-## Downloading
+## Clone repository
 
 ```
 git clone {repository URL}
@@ -17,56 +17,52 @@ git clone {repository URL}
 npm install
 ```
 
-## Running application
+## Create images and start container
 
 ```
-npm start
+docker-compose up
 ```
 
-After starting the app on port (4000 as default) you can open
-in your browser OpenAPI documentation by typing http://localhost:4000/doc/.
-For more information about OpenAPI/Swagger please visit https://swagger.io/.
+## Useful comands for docker
 
-## Testing
-
-After application running open new terminal and enter:
-
-To run all tests without authorization
+1. List all images
 
 ```
-npm test
+docker images
 ```
 
-To run only one of all test suites (users, boards or tasks)
+2. Delete an image
 
 ```
-npm test <suite name>
+docker image rm "image_id/_name"
 ```
 
-To run all test with authorization
+3. List the running containers
 
 ```
-npm run test:auth
+docker ps
 ```
 
-To run only specific test suite with authorization (users, boards or tasks)
+4. List all containers (running and stopped)
 
 ```
-npm run test:auth <suite name>
+docker ps -a
 ```
 
-## Development
-
-If you're using VSCode, you can get a better developer experience from integration with [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) and [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) extensions.
-
-### Auto-fix and format
+5. Delete all running and stopped containers
 
 ```
-npm run lint
+docker rm -f $(docker ps -a -q)
 ```
 
-### Debugging in VSCode
+6. Stop the container
 
-Press <kbd>F5</kbd> to debug.
+```
+docker-compose down
+```
 
-For more information, visit: https://code.visualstudio.com/docs/editor/debugging
+7. Delete all
+
+```
+docker system prune -a
+```
