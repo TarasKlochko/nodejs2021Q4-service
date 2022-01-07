@@ -1,9 +1,7 @@
-FROM node:16.13-alpine3.15 as build
+FROM node:16.13-alpine3.15
 WORKDIR /usr/app
 COPY package*.json ./
-RUN npm install
+RUN npm install --production
 COPY . .
-FROM node:16.13-alpine3.15
-COPY --from=build /usr/app /
 EXPOSE 4000
 CMD ["npm", "start"]
