@@ -5,6 +5,7 @@ import { boardRoutes } from './routes/boards';
 import { tasksRoutes } from './routes/tasks';
 import userRoutes from './routes/users';
 import { PORT } from './common/config';
+import 'reflect-metadata';
 
 const fastify: FastifyInstance<Server, IncomingMessage, ServerResponse> =
   Fastify({
