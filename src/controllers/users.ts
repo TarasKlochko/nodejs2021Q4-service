@@ -12,8 +12,8 @@ import users from '../data/users';
  * @returns void
  */
 
-export const getUsers = (_req: FastifyRequest, reply: FastifyReply) => {
-  reply.send(users.getAll());
+export const getUsers = async (_req: FastifyRequest, reply: FastifyReply) => {
+  reply.send(await users.getAll());
 };
 
 /**
@@ -23,9 +23,9 @@ export const getUsers = (_req: FastifyRequest, reply: FastifyReply) => {
  * @returns void
  */
 
-export const getUser = (req: FastifyRequest, reply: FastifyReply) => {
+export const getUser = async (req: FastifyRequest, reply: FastifyReply) => {
   const { id } = <{ id: UserID }>req.params;
-  const user = users.getByID(id);
+  const user = await users.getByID(id);
   reply.send(user);
 };
 
@@ -36,7 +36,7 @@ export const getUser = (req: FastifyRequest, reply: FastifyReply) => {
  * @returns void
  */
 
-export const addUser = (req: FastifyRequest, reply: FastifyReply) => {
+export const addUser = async (req: FastifyRequest, reply: FastifyReply) => {
   const { name, login, password } = <User>req.body;
   const user = {
     id: uuidV4(),
@@ -44,8 +44,8 @@ export const addUser = (req: FastifyRequest, reply: FastifyReply) => {
     login,
     password,
   };
-  users.add(user);
-  reply.code(201).send(user);
+  const res = await users.add(user);
+  reply.code(201).send(res);
 };
 
 /**
@@ -55,9 +55,9 @@ export const addUser = (req: FastifyRequest, reply: FastifyReply) => {
  * @returns void
  */
 
-export const deleteUser = (req: FastifyRequest, reply: FastifyReply) => {
+export const deleteUser = async (req: FastifyRequest, reply: FastifyReply) => {
   const { id } = <{ id: UserID }>req.params;
-  users.deleteByID(id);
+  await users.deleteByID(id);
   tasks.cleanUserValue(id);
   reply.send({ message: `User ${id} has been removed` });
 };
@@ -69,9 +69,9 @@ export const deleteUser = (req: FastifyRequest, reply: FastifyReply) => {
  * @returns void
  */
 
-export const updateUser = (req: FastifyRequest, reply: FastifyReply) => {
+export const updateUser = async (req: FastifyRequest, reply: FastifyReply) => {
   const { id } = <{ id: UserID }>req.params;
-  users.update(req);
-  const user = users.getByID(id);
+  await users.update(req);
+  const user = await users.getByID(id);
   reply.send(user);
 };

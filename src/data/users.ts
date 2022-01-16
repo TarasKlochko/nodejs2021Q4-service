@@ -1,79 +1,35 @@
 import { FastifyRequest } from 'fastify';
+import { Users } from '../entity/user.entity';
 import { User, UserID } from '../model/user';
 
-let users: User[] = [
-  {
-    id: '59b3b81a-32cb-409c-b21f-31b27c32d161',
-    name: 'User one',
-    login: 'User1',
-    password: '111',
-  },
-  {
-    id: '59b3b81a-32cb-409c-b21f-31b27c32d162',
-    name: 'User two',
-    login: 'User2',
-    password: '222',
-  },
-  {
-    id: '59b3b81a-32cb-409c-b21f-31b27c32d163',
-    name: 'User three',
-    login: 'User3',
-    password: '333',
-  },
-];
-
-/**
- * Return users
- * @returns users User[]
- */
-
-function getAll() {
+async function getAll() {
+  const users = await Users.find();
   return users;
 }
 
-/**
- * Finds and returns user by ID
- * @param id first term string
- * @returns user User
- */
-
-function getByID(id: UserID) {
-  const user = users.find((userItem) => userItem.id === id);
+async function getByID(id: UserID) {
+  const user = await Users.findOne(id);
   return user;
 }
 
-/**
- * Adds new user to users
- * @param user first term User
- * @returns void
- */
-
 async function add(user: User) {
-  users = [...users, user];
+  const newUser = Users.create(user);
+  const res = await Users.save(newUser);
+  return res;
 }
-
-/**
- * Updates user by ID
- * @param req first term FastifyRequest
- * @returns void
- */
 
 async function update(req: FastifyRequest) {
   const { id } = <{ id: UserID }>req.params;
-  const { name, login, password } = <User>req.body;
-  users = users.map((user) =>
-    user.id === id ? { ...user, name, login, password } : user
-  );
+  const user = await Users.findOne(id);
+  if (user) {
+    Users.merge(user, <User>req.body);
+    const res = await Users.save(user);
+    return res;
+  }
 }
 
-/**
- * Deletes user by ID
- * @param id first term string
- * @returns void
- */
-
 async function deleteByID(id: UserID) {
-  users = users.filter((user) => user.id !== id);
+  await Users.delete(id);
 }
 
 export default { getAll, getByID, add, update, deleteByID };
