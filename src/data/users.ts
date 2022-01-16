@@ -26,6 +26,7 @@ async function update(req: FastifyRequest) {
     const res = await Users.save(user);
     return res;
   }
+  return undefined;
 }
 
 async function deleteByID(id: UserID) {
