@@ -1,9 +1,9 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { v4 as uuidV4 } from 'uuid';
+import bcrypt from 'bcryptjs';
 import tasks from '../data/tasks';
 import { UserID, User } from '../model/user';
 import users from '../data/users';
-import bcrypt from 'bcryptjs';
 
 /**
  * Sends all users

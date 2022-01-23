@@ -2,6 +2,7 @@ import { createConnection } from 'typeorm';
 import Fastify, { FastifyInstance } from 'fastify';
 import fastifySwagger from 'fastify-swagger';
 import { Server, IncomingMessage, ServerResponse } from 'http';
+import bcrypt from 'bcryptjs';
 import loginRoutes from './routes/login';
 import { boardRoutes } from './routes/boards';
 import { tasksRoutes } from './routes/tasks';
@@ -10,7 +11,6 @@ import { PORT } from './common/config';
 import 'reflect-metadata';
 import { ConfigDB } from '../ormconfig';
 import { Users } from './entity/user.entity';
-import bcrypt from 'bcryptjs';
 
 createConnection(ConfigDB).then(async (connection) => {
   if (connection.isConnected) {

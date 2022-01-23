@@ -1,9 +1,9 @@
-import { checkToken } from '../common/checkToken';
 import {
   FastifyInstance,
   RouteShorthandOptions,
   RouteShorthandOptionsWithHandler,
 } from 'fastify';
+import { checkToken } from '../common/checkToken';
 
 import {
   getTasks,
