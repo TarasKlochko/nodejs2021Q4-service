@@ -7,7 +7,7 @@ const checkToken = (
   reply: FastifyReply,
   done: () => void
 ) => {
-  const tokenString = req.headers['authorization'];
+  const tokenString = req.headers.authorization;
   if (tokenString !== undefined) {
     const [type, token] = tokenString.split(' ');
     if (type !== 'Bearer') {
@@ -15,11 +15,10 @@ const checkToken = (
       done();
     } else {
       try {
-        const res = jwt.verify(token, JWT_SECRET_KEY!);
+        jwt.verify(token, JWT_SECRET_KEY!);
       } catch (error) {
         reply.status(401).send('Wrong auth authHeader');
       }
-
       done();
     }
   } else {
