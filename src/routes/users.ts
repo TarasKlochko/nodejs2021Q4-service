@@ -121,7 +121,7 @@ export default function userRoutes(
 
   // Get single user
   fastify.get('/users/:id', getUserOpts);
-  done();
+
   // Add single user
   fastify.post('/users', postUserOpts);
 
