@@ -2,8 +2,8 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 import { v4 as uuidV4 } from 'uuid';
 import tasks from '../data/tasks';
 import { UserID, User } from '../model/user';
-
 import users from '../data/users';
+import bcrypt from 'bcryptjs';
 
 /**
  * Sends all users
@@ -42,7 +42,7 @@ export const addUser = async (req: FastifyRequest, reply: FastifyReply) => {
     id: uuidV4(),
     name,
     login,
-    password,
+    password: await bcrypt.hash(password, 10),
   };
   const res = await users.add(user);
   reply.code(201).send(res);
