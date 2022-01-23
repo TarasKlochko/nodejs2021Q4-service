@@ -2,6 +2,7 @@ import { createConnection } from 'typeorm';
 import Fastify, { FastifyInstance } from 'fastify';
 import fastifySwagger from 'fastify-swagger';
 import { Server, IncomingMessage, ServerResponse } from 'http';
+import loginRoutes from './routes/login';
 import { boardRoutes } from './routes/boards';
 import { tasksRoutes } from './routes/tasks';
 import userRoutes from './routes/users';
@@ -39,6 +40,7 @@ createConnection(ConfigDB).then(() => {
     routePrefix: '/docs',
   });
 
+  fastify.register(loginRoutes);
   fastify.register(userRoutes);
   fastify.register(boardRoutes);
   fastify.register(tasksRoutes);

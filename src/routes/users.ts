@@ -1,3 +1,4 @@
+import { checkToken } from '../common/checkToken';
 import {
   FastifyInstance,
   RouteShorthandOptions,
@@ -24,7 +25,7 @@ const User = {
 };
 
 // Options for get all users
-const getUsersOpts: RouteShorthandOptionsWithHandler = {
+const getUsersOpts = {
   schema: {
     response: {
       200: {
@@ -34,6 +35,7 @@ const getUsersOpts: RouteShorthandOptionsWithHandler = {
     },
   },
   handler: getUsers,
+  preHandler: checkToken,
 };
 
 // Options for get single user

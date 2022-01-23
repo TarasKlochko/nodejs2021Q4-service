@@ -44,10 +44,12 @@
     ]
   },
   "dependencies": {
+    "@types/jsonwebtoken": "^8.5.8",
     "cross-env": "7.0.3",
     "dotenv": "10.0.0",
     "fastify": "^3.24.1",
     "fastify-swagger": "^4.12.6",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^8.7.1",
     "pino-pretty": "^7.3.0",
     "reflect-metadata": "^0.1.13",
