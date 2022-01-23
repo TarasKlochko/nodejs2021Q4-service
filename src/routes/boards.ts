@@ -1,3 +1,4 @@
+import { checkToken } from '../common/checkToken';
 import {
   FastifyInstance,
   RouteShorthandOptions,
@@ -41,6 +42,7 @@ const getBoardsOpts: RouteShorthandOptionsWithHandler = {
     },
   },
   handler: getBoards,
+  preHandler: checkToken,
 };
 
 const getBoardOpts: RouteShorthandOptionsWithHandler = {
@@ -50,6 +52,7 @@ const getBoardOpts: RouteShorthandOptionsWithHandler = {
     },
   },
   handler: getBoard,
+  preHandler: checkToken,
 };
 
 const postBoardOpts: RouteShorthandOptionsWithHandler = {
@@ -76,6 +79,7 @@ const postBoardOpts: RouteShorthandOptionsWithHandler = {
     },
   },
   handler: addBoard,
+  preHandler: checkToken,
 };
 
 const updateBoardOpts: RouteShorthandOptionsWithHandler = {
@@ -85,6 +89,7 @@ const updateBoardOpts: RouteShorthandOptionsWithHandler = {
     },
   },
   handler: updateBoard,
+  preHandler: checkToken,
 };
 
 const deleteBoardOpts: RouteShorthandOptionsWithHandler = {
@@ -94,6 +99,7 @@ const deleteBoardOpts: RouteShorthandOptionsWithHandler = {
     },
   },
   handler: deleteBoard,
+  preHandler: checkToken,
 };
 
 /**

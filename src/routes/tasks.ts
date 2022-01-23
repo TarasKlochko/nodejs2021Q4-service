@@ -1,3 +1,4 @@
+import { checkToken } from '../common/checkToken';
 import {
   FastifyInstance,
   RouteShorthandOptions,
@@ -36,6 +37,7 @@ const getTasksOpts: RouteShorthandOptionsWithHandler = {
     },
   },
   handler: getTasks,
+  preHandler: checkToken,
 };
 
 const getTaskOpts: RouteShorthandOptionsWithHandler = {
@@ -45,6 +47,7 @@ const getTaskOpts: RouteShorthandOptionsWithHandler = {
     },
   },
   handler: getTask,
+  preHandler: checkToken,
 };
 
 const postTaskOpts: RouteShorthandOptionsWithHandler = {
@@ -63,6 +66,7 @@ const postTaskOpts: RouteShorthandOptionsWithHandler = {
     },
   },
   handler: addTask,
+  preHandler: checkToken,
 };
 
 const updateTaskOpts: RouteShorthandOptionsWithHandler = {
@@ -72,6 +76,7 @@ const updateTaskOpts: RouteShorthandOptionsWithHandler = {
     },
   },
   handler: updateTask,
+  preHandler: checkToken,
 };
 
 const deleteTaskOpts: RouteShorthandOptionsWithHandler = {
@@ -81,6 +86,7 @@ const deleteTaskOpts: RouteShorthandOptionsWithHandler = {
     },
   },
   handler: deleteTask,
+  preHandler: checkToken,
 };
 
 /**

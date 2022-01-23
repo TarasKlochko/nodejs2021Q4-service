@@ -46,6 +46,7 @@ const getUserOpts: RouteShorthandOptionsWithHandler = {
     },
   },
   handler: getUser,
+  preHandler: checkToken,
 };
 
 // Options for add single user
@@ -72,6 +73,7 @@ const postUserOpts: RouteShorthandOptionsWithHandler = {
     },
   },
   handler: addUser,
+  preHandler: checkToken,
 };
 
 // Options for delete single user
@@ -87,6 +89,7 @@ const deleteUserOpts: RouteShorthandOptionsWithHandler = {
     },
   },
   handler: deleteUser,
+  preHandler: checkToken,
 };
 
 // Options for update user
@@ -97,6 +100,7 @@ const updateUserOpts: RouteShorthandOptionsWithHandler = {
     },
   },
   handler: updateUser,
+  preHandler: checkToken,
 };
 
 /**
