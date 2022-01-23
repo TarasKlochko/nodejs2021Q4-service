@@ -12,7 +12,7 @@ export const createToken = async (req: FastifyRequest, reply: FastifyReply) => {
     const token = jwt.sign({ id, login }, JWT_SECRET_KEY!, {
       expiresIn: '60m',
     });
-    reply.code(200).send(token);
+    reply.code(200).send({ token: token });
   } else {
     reply.code(403).send({ message: `Wrong login/password` });
   }
